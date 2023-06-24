@@ -8,12 +8,14 @@ public class Enemy : Entity
     public Stats enemyStats;
     public bool engaged;
     public float counter;
+    public Vector2 startPosition;
     // Start is called before the first frame update
     public override void Start()
     {
         enemyStats.moveSpeed = 2;
         engaged = false;
         counter = 0;
+        startPosition = new Vector2(transform.position.x, transform.position.y);
     }
 
     // Update is called once per frame
@@ -30,9 +32,18 @@ public class Enemy : Entity
             {
                 counter += Time.deltaTime;
             }
+
+            if (new Vector2(startPosition.x - transform.position.x,startPosition.y - transform.position.y).magnitude > 6)
+            {
+                MoveTo(startPosition);
+
+            }
         }
     }
-
+    void MoveTo(Vector2 target)
+    {
+        body.velocity = new Vector2(target.x - transform.position.x, target.y - transform.position.y);
+    }
     void Wander()
     {
 
