@@ -1,0 +1,14 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class CharacterFrame : MonoBehaviour {
+    [Header("Bars")]
+    [SerializeField] private Image healthBar;
+    [SerializeField] private Image resourceBar;
+
+    public void UpdateHealthBar(float healthPercent) {
+
+    }
+}
