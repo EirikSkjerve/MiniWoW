@@ -31,13 +31,15 @@ public class RoamingState : EnemyState
 
     public override void UpdateState(Enemy enemy)
     {
+
         
         if ((_moveCounter > _frequency)&&_idle)
         {
-            Debug.Log("Changing direction");
+
             _idle = false;
             
             enemy.currentTarget = GetRandomPosition(enemy, 8, 5);
+            enemy.RotateToDirection();
             enemy.WalkTo(enemy.currentTarget);
 
             _moveCounter = 0;
@@ -52,7 +54,6 @@ public class RoamingState : EnemyState
         // counter is set to zero
         if(((enemy.transform.position - enemy.currentTarget).magnitude < 0.1f) && !_idle)
         {
-            Debug.Log("Stopping");
             _idle = true;
             
             enemy.currentTarget = GetRandomPosition(enemy, 8, 5);

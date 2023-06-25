@@ -42,7 +42,7 @@ public class Enemy : Entity
     public void WalkTo(Vector3 position)
     {
         body.velocity = new Vector2(position.x - transform.position.x, position.y - transform.position.y).normalized * EnemyStats.WalkSpeed;
-        //RotateToDirection();
+        
     }
     
     public void RunTo(Vector3 position)
@@ -52,7 +52,8 @@ public class Enemy : Entity
 
     public void RotateToDirection()
     {
-        float angle = Mathf.Atan2(currentTarget.y, currentTarget.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+ 
+            //todo implement rotation
+
     }
 }
