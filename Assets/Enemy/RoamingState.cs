@@ -12,12 +12,15 @@ public class RoamingState : EnemyState
     [SerializeField] private float _moveCounter;
     [SerializeField] private float _frequency;
     [SerializeField] private float _maxRoamingRange;
+    [SerializeField] private bool _idle;
+    
     public override void EnterState(Enemy enemy)
     {
 
+        _idle = true;
         _frequency = 3;
-        _moveCounter = 0; 
-        enemy.startPosition = enemy.transform.position;
+        _moveCounter = 0;
+        enemy.currentTarget = GetRandomPosition(enemy, 8, 5);
 
     }
 
@@ -28,24 +31,46 @@ public class RoamingState : EnemyState
 
     public override void UpdateState(Enemy enemy)
     {
-        if (_moveCounter > _frequency)
+        
+        if ((_moveCounter > _frequency)&&_idle)
         {
+            Debug.Log("Changing direction");
+            _idle = false;
+            
+            enemy.currentTarget = GetRandomPosition(enemy, 8, 5);
+            enemy.WalkTo(enemy.currentTarget);
+
             _moveCounter = 0;
-            enemy.WalkTo(GetRandomPosition(enemy, 10,10));
+            
         }
         else
-        {
+        { 
             _moveCounter += Time.deltaTime;
+        }
+
+        //if the enemy has reached its target position (within some error bound), movement is stopped and 
+        // counter is set to zero
+        if(((enemy.transform.position - enemy.currentTarget).magnitude < 0.1f) && !_idle)
+        {
+            Debug.Log("Stopping");
+            _idle = true;
+            
+            enemy.currentTarget = GetRandomPosition(enemy, 8, 5);
+            enemy.body.velocity = new Vector2(0, 0);
+            
+            _moveCounter = 0;
+
         }
     }
 
-    Vector2 GetRandomPosition(Enemy enemy, float xMax, float yMax)
+
+
+    Vector3 GetRandomPosition(Enemy enemy, float xMax, float yMax)
     {
         float randX = Random.Range(enemy.startPosition.x-xMax, enemy.startPosition.x+xMax);
         float randY = Random.Range(enemy.startPosition.y - yMax, enemy.startPosition.y + yMax);
-        //Debug.Log($"RandX is {randX}");
-        //Debug.Log($"RandY is {randY}");
-        return new Vector2(randX, randY);
+
+        return new Vector3(randX, randY, enemy.transform.position.z);
     }
 
 

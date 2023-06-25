@@ -1,23 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Enemy : Entity
 {
     [Header("States")]
     private EnemyState _currentState;
-
     private RoamingState _roamingState;
+
     
     [SerializeField] private Stats EnemyStats;
     public Vector2 startPosition;
-
+    public Vector3 currentTarget;
+    
     // Start is called before the first frame update
     public override void Start()
     {
 
-        EnemyStats.WalkSpeed = 3f;
-        EnemyStats.RunSpeed = 10f;
+        EnemyStats.WalkSpeed = 1.5f;
+        EnemyStats.RunSpeed = 4f;
+        startPosition = transform.position;
         _roamingState = new RoamingState();
         _currentState = _roamingState;
         _currentState.EnterState(this);
@@ -36,14 +39,20 @@ public class Enemy : Entity
         _currentState = newState;
         _currentState.EnterState(this);
     }
-    public void WalkTo(Vector2 position)
+    public void WalkTo(Vector3 position)
     {
         body.velocity = new Vector2(position.x - transform.position.x, position.y - transform.position.y).normalized * EnemyStats.WalkSpeed;
+        //RotateToDirection();
     }
     
-    public void RunTo(Vector2 position)
+    public void RunTo(Vector3 position)
     {
         body.velocity = new Vector2(position.x - transform.position.x, position.y - transform.position.y).normalized * EnemyStats.RunSpeed;
     }
-   
+
+    public void RotateToDirection()
+    {
+        float angle = Mathf.Atan2(currentTarget.y, currentTarget.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+    }
 }
