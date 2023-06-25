@@ -8,16 +8,19 @@ public class Enemy : Entity
     private EnemyState _currentState;
 
     private RoamingState _roamingState;
-
-    public Stats EnemyStats;
+    
+    [SerializeField] private Stats EnemyStats;
     public Vector2 startPosition;
 
     // Start is called before the first frame update
     public override void Start()
     {
-        EnemyStats = new Stats();
+
+        EnemyStats.WalkSpeed = 3f;
+        EnemyStats.RunSpeed = 10f;
         _roamingState = new RoamingState();
         _currentState = _roamingState;
+        _currentState.EnterState(this);
 
     }
 
@@ -33,4 +36,14 @@ public class Enemy : Entity
         _currentState = newState;
         _currentState.EnterState(this);
     }
+    public void WalkTo(Vector2 position)
+    {
+        body.velocity = new Vector2(position.x - transform.position.x, position.y - transform.position.y).normalized * EnemyStats.WalkSpeed;
+    }
+    
+    public void RunTo(Vector2 position)
+    {
+        body.velocity = new Vector2(position.x - transform.position.x, position.y - transform.position.y).normalized * EnemyStats.RunSpeed;
+    }
+   
 }

@@ -12,14 +12,12 @@ public class RoamingState : EnemyState
     [SerializeField] private float _moveCounter;
     [SerializeField] private float _frequency;
     [SerializeField] private float _maxRoamingRange;
-    Enemy _enemy;
     public override void EnterState(Enemy enemy)
     {
-        this._enemy = enemy;
 
         _frequency = 3;
-        _moveCounter = 0;
-        this._enemy.startPosition = this._enemy.transform.position;
+        _moveCounter = 0; 
+        enemy.startPosition = enemy.transform.position;
 
     }
 
@@ -28,12 +26,12 @@ public class RoamingState : EnemyState
         throw new System.NotImplementedException();
     }
 
-    public override void UpdateState(Enemy stateMachineenemy)
+    public override void UpdateState(Enemy enemy)
     {
         if (_moveCounter > _frequency)
         {
             _moveCounter = 0;
-            Wander();
+            enemy.WalkTo(GetRandomPosition(enemy, 10,10));
         }
         else
         {
@@ -41,11 +39,13 @@ public class RoamingState : EnemyState
         }
     }
 
-    void Wander()
+    Vector2 GetRandomPosition(Enemy enemy, float xMax, float yMax)
     {
-        float randX = Random.Range(_enemy.startPosition.x-10, _enemy.startPosition.x+10);
-        float randY = Random.Range(_enemy.startPosition.y-10, _enemy.startPosition.y+10);
-        _enemy.WalkTo(new Vector2(randX, randY));
+        float randX = Random.Range(enemy.startPosition.x-xMax, enemy.startPosition.x+xMax);
+        float randY = Random.Range(enemy.startPosition.y - yMax, enemy.startPosition.y + yMax);
+        //Debug.Log($"RandX is {randX}");
+        //Debug.Log($"RandY is {randY}");
+        return new Vector2(randX, randY);
     }
 
 
