@@ -12,7 +12,8 @@ public class Player : Entity
     public override void Start()
     {
         PlayerStats = new Stats();
-        PlayerStats.MoveSpeed = 3.1f;
+        PlayerStats.WalkSpeed = 2.5f;
+        PlayerStats.RunSpeed = 6f;
     }
 
     // Update is called once per frame
@@ -56,7 +57,7 @@ public class Player : Entity
 
             }
 
-            body.velocity = new Vector2(xDir,yDir).normalized * PlayerStats.MoveSpeed;
+            body.velocity = new Vector2(xDir,yDir).normalized * PlayerStats.RunSpeed;
         
     }
 }
