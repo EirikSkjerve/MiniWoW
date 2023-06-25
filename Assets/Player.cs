@@ -5,14 +5,15 @@ using UnityEngine;
 
 public class Player : Entity
 {
-    public Stats playerStats;
-    float xdir;
-    float ydir;
+    public Stats PlayerStats;
+    [SerializeField] private float xDir;
+    [SerializeField] private float yDir;
     // Start is called before the first frame update
     public override void Start()
     {
-        playerStats = new Stats();
-        playerStats.moveSpeed = 3.1f;
+        PlayerStats = new Stats();
+        PlayerStats.WalkSpeed = 2.5f;
+        PlayerStats.RunSpeed = 6f;
     }
 
     // Update is called once per frame
@@ -27,36 +28,36 @@ public class Player : Entity
     {
 
         
-            xdir = 0;
-            ydir = 0;
+            xDir = 0;
+            yDir = 0;
 
             if (Input.GetKey(KeyCode.W))
             {
-                ydir += 1;
+                yDir += 1;
 
             }
 
             if (Input.GetKey(KeyCode.S))
             {
 
-                ydir -= 1;
+                yDir -= 1;
 
             }
 
             if (Input.GetKey(KeyCode.A))
             {
-                xdir -= 1;
+                xDir -= 1;
 
             }
 
             if (Input.GetKey(KeyCode.D))
             {
-                xdir += 1;
+                xDir += 1;
 
 
             }
 
-            body.velocity = new Vector2(xdir,ydir).normalized * playerStats.moveSpeed;
+            body.velocity = new Vector2(xDir,yDir).normalized * PlayerStats.RunSpeed;
         
     }
 }

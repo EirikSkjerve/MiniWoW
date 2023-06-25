@@ -7,16 +7,17 @@ public class Entity : MonoBehaviour
     public Rigidbody2D body;
     public struct Stats
     {
-        public float moveSpeed;
-        public int strength;
-        public int hitpoints;
+        public float RunSpeed;
+        public float WalkSpeed;
+        public int Strength;
+        public int Hitpoints;
     }
 
-    public Stats entityStats;
+    [SerializeField] private Stats EntityStats;
     // Start is called before the first frame update
     public virtual void Start()
     {
-        entityStats.moveSpeed = 10f;
+        
     }
 
     // Update is called once per frame
@@ -27,6 +28,7 @@ public class Entity : MonoBehaviour
 
     public virtual void Move()
     {
-
+        
     }
+    
 }
