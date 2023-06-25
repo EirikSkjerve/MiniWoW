@@ -155,8 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   body: {fileID: 884337374}
-  engaged: 0
-  counter: 0
+  startPosition: {x: 0, y: 0}
 --- !u!212 &884337373
 SpriteRenderer:
   m_ObjectHideFlags: 0

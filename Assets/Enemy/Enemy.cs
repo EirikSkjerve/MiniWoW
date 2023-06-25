@@ -5,31 +5,32 @@ using UnityEngine;
 public class Enemy : Entity
 {
     [Header("States")]
-    private EnemyState currentState;
-    public RoamingState roamingState = new RoamingState();
+    private EnemyState _currentState;
 
-    public Stats enemyStats;
+    private RoamingState _roamingState;
+
+    public Stats EnemyStats;
     public Vector2 startPosition;
 
     // Start is called before the first frame update
     public override void Start()
     {
-        enemyStats = new Stats();
-
-        currentState = roamingState;
+        EnemyStats = new Stats();
+        _roamingState = new RoamingState();
+        _currentState = _roamingState;
 
     }
 
     // Update is called once per frame
     public override void Update()
     {
-        currentState.UpdateState(this);
+        _currentState.UpdateState(this);
     }
 
     public void ChangeState(EnemyState newState)
     {
-        currentState.ExitState(this);
-        currentState = newState;
-        currentState.EnterState(this);
+        _currentState.ExitState(this);
+        _currentState = newState;
+        _currentState.EnterState(this);
     }
 }
