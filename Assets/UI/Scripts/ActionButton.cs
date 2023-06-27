@@ -4,6 +4,16 @@ using TMPro;
 
 public class ActionButton : MonoBehaviour
 {
+    private SpellInfo _spellInfo;
+
+    public SpellInfo SpellInfo {
+        get { return _spellInfo; }
+        set {
+            _spellInfo = value;
+            UpdateActionButton(value);
+        }
+    }
+
     [SerializeField] private Image coolDownFill;
     [SerializeField] private TMP_Text coolDownText;
 
@@ -20,4 +30,11 @@ public class ActionButton : MonoBehaviour
             coolDownFill.gameObject.SetActive(false);
         }
     }
+
+
+    private void UpdateActionButton(SpellInfo spellInfo) {
+        GetComponent<Image>().sprite = spellInfo.spellIcon;
+        GetComponentInChildren<TMP_Text>().text = spellInfo.spellName;
+    }
 }
+

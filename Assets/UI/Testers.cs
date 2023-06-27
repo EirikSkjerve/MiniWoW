@@ -8,7 +8,6 @@ public class Testers : MonoBehaviour
     private CharacterFrame _characterFrameScript;
 
     [SerializeField] private GameObject actionBar;
-    private ActionBar _actionBarScript;
 
     [Range(0f, 1f)]
     [SerializeField] private float healthRatio;
@@ -20,16 +19,14 @@ public class Testers : MonoBehaviour
 
     [SerializeField] private string characterName;
 
-    [SerializeField] private float totalTime;
-    [SerializeField] private float remainingTime;
-    [SerializeField] private int actionButton;
-    [SerializeField] private bool countDown;
+    [SerializeField] private GameObject actionButtonTest;
+    [SerializeField] private SpellInfo spellInfoTest;
 
     // Start is called before the first frame update
     void Start()
     {
         _characterFrameScript = characterFrame.GetComponent<CharacterFrame>();
-        _actionBarScript = actionBar.GetComponent<ActionBar>();
+        actionButtonTest.GetComponent<ActionButton>().SpellInfo = spellInfoTest;
     }
 
     // Update is called once per frame
@@ -38,9 +35,6 @@ public class Testers : MonoBehaviour
         _characterFrameScript.UpdateHealthBar(healthRatio);
         _characterFrameScript.UpdateResourceBar(resourceRatio);
         _characterFrameScript.SetCharacterHead(characterHead);
-        _characterFrameScript.SetCharacterName(characterName);
-
-        _actionBarScript.UpdateCoolDown(actionButton, totalTime, remainingTime);
-        if (remainingTime > 0 && countDown) { remainingTime -= Time.deltaTime; }
+        _characterFrameScript.SetCharacterName(characterName);        
     }
 }
