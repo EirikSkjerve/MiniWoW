@@ -38,15 +38,24 @@ public class Enemy : Entity
         _currentState = newState;
         _currentState.EnterState(this);
     }
-    public void WalkTo(Vector3 position)
+    public void WalkTo(Vector3 targetPosition)
     {
-        body.velocity = new Vector2(position.x - transform.position.x, position.y - transform.position.y).normalized * GetRunSpeed();
+        var position1 = transform.position;
+        var xDir = targetPosition.x - position1.x;
+        var yDir = targetPosition.y - position1.y;
+        var movementDirection = new Vector2(xDir, yDir);
+        var inputMagnitude = Mathf.Clamp01(movementDirection.magnitude);
+        movementDirection.Normalize();
+            
+        transform.Translate(movementDirection * (GetWalkSpeed() * inputMagnitude * Time.deltaTime), Space.World);
+            
+        //.velocity = new Vector2(position.x - position1.x, position.y - position1.y).normalized * GetWalkSpeed();
         
     }
     
     public void RunTo(Vector3 position)
     {
-        body.velocity = new Vector2(position.x - transform.position.x, position.y - transform.position.y).normalized * GetWalkSpeed();
+        body.velocity = new Vector2(position.x - transform.position.x, position.y - transform.position.y).normalized * GetRunSpeed();
     }
 
     public void RotateToDirection()

@@ -39,14 +39,17 @@ public class RoamingState : EnemyState
             _idle = false;
             
             enemy.currentTarget = GetRandomPosition(enemy, 8, 5);
-            enemy.RotateToDirection();
-            enemy.WalkTo(enemy.currentTarget);
 
             _moveCounter = 0;
             
         }
-        else
+        else if(!_idle)
         { 
+            enemy.WalkTo(enemy.currentTarget);
+            _moveCounter += Time.deltaTime;
+        }
+        else
+        {
             _moveCounter += Time.deltaTime;
         }
 
@@ -57,7 +60,7 @@ public class RoamingState : EnemyState
             _idle = true;
             
             enemy.currentTarget = GetRandomPosition(enemy, 8, 5);
-            enemy.body.velocity = new Vector2(0, 0);
+            //enemy.body.velocity = new Vector2(0, 0);
             
             _moveCounter = 0;
 
