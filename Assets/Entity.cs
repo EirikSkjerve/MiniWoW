@@ -37,6 +37,7 @@ public abstract class Entity : MonoBehaviour
         None
     }
 
+    [SerializeField] private Direction _currentDirection;
     private Stats _entityStats;
     
     // Start is called before the first frame update
@@ -48,10 +49,10 @@ public abstract class Entity : MonoBehaviour
     // Update is called once per frame
     public virtual void Update()
     {
-        
+
     }
 
-    public Direction GetDirection(Vector2 vectorDirection)
+    private static Direction GetDirection(Vector2 vectorDirection)
     {
         //movement is upwards
         if (vectorDirection.y > 0)
@@ -100,6 +101,16 @@ public abstract class Entity : MonoBehaviour
         }
         
         return Direction.None ;
+    }
+    
+    public void SetCurrentDirection (Vector2 vectorDirection)
+    {
+        _currentDirection = GetDirection(vectorDirection);
+    }
+
+    public Direction GetCurrentDirection()
+    {
+        return _currentDirection;
     }
     protected void SetHitPoints(int valueHitPoints)
     {

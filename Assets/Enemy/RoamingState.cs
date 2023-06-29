@@ -18,7 +18,7 @@ public class RoamingState : EnemyState
     {
 
         _idle = true;
-        _frequency = 3;
+        _frequency = 1;
         _moveCounter = 0;
         enemy.currentTarget = GetRandomPosition(enemy, 8, 5);
 
@@ -37,9 +37,8 @@ public class RoamingState : EnemyState
         {
 
             _idle = false;
-            
-            enemy.currentTarget = GetRandomPosition(enemy, 8, 5);
 
+            enemy.currentTarget = GetRandomPosition(enemy, 8, 5);
             _moveCounter = 0;
             
         }
@@ -47,6 +46,7 @@ public class RoamingState : EnemyState
         { 
             enemy.WalkTo(enemy.currentTarget);
             _moveCounter += Time.deltaTime;
+            //Debug.Log(enemy.GetCurrentDirection());
         }
         else
         {
@@ -67,13 +67,12 @@ public class RoamingState : EnemyState
         }
     }
 
-
-
+    
     Vector3 GetRandomPosition(Enemy enemy, float xMax, float yMax)
     {
-        float randX = Random.Range(enemy.startPosition.x-xMax, enemy.startPosition.x+xMax);
-        float randY = Random.Range(enemy.startPosition.y - yMax, enemy.startPosition.y + yMax);
-
+        var randX = Random.Range(enemy.startPosition.x-xMax, enemy.startPosition.x+xMax);
+        var randY = Random.Range(enemy.startPosition.y - yMax, enemy.startPosition.y + yMax);
+        
         return new Vector3(randX, randY, enemy.transform.position.z);
     }
 

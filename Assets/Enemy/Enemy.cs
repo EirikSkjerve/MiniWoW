@@ -30,6 +30,7 @@ public class Enemy : Entity
     public override void Update()
     {
         _currentState.UpdateState(this);
+        Debug.Log(GetCurrentDirection());
     }
 
     public void ChangeState(EnemyState newState)
@@ -48,7 +49,7 @@ public class Enemy : Entity
         movementDirection.Normalize();
             
         transform.Translate(movementDirection * (GetWalkSpeed() * inputMagnitude * Time.deltaTime), Space.World);
-            
+        SetCurrentDirection(new Vector2(movementDirection.x, movementDirection.y));
         //.velocity = new Vector2(position.x - position1.x, position.y - position1.y).normalized * GetWalkSpeed();
         
     }
