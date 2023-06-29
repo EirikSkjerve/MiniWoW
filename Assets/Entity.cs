@@ -10,6 +10,7 @@ public abstract class Entity : MonoBehaviour
     [SerializeField] private int currentHitPoints;
     [SerializeField] private int maxResource;
     [SerializeField] private int currentResource;
+    [SerializeField] private int level;
     [SerializeField] private float runSpeed;
     [SerializeField] private float walkSpeed;
     [SerializeField] private bool inCombat;
@@ -39,11 +40,16 @@ public abstract class Entity : MonoBehaviour
 
     protected void SetHitPoints(int valueHitPoints)
     {
-        if (valueHitPoints >= 0 && valueHitPoints <= maxHitPoints && isAlive)
+        switch (valueHitPoints)
         {
-            currentHitPoints = valueHitPoints;
+            case > 0 when valueHitPoints <= maxHitPoints && isAlive:
+                currentHitPoints = valueHitPoints;
+                break;
+            case < 0:
+                isAlive = false;
+                currentHitPoints = 0;
+                break;
         }
-        
     }
 
     public int GetHitPoints()
@@ -82,28 +88,20 @@ public abstract class Entity : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        if (!isAlive)
-        {
-            return;
-
-        }
+        if (!isAlive || damage < 0) return;
+        
         var current = GetHitPoints();
         var updated = current - damage;
-        if (updated > 0)
-        {
-            SetHitPoints(updated);
-        }
-        else
-        {
-            SetHitPoints(0);
-            isAlive = false;
-            Debug.Log("Entity has died");
-        }
+        SetHitPoints(updated > 0 ? updated : 0);
     }
 
-    public void TakeHealing()
+    public void TakeHealing(int healing)
     {
-        
+        if (!isAlive || healing <= 0) return;
+
+        var current = GetHitPoints();
+        var updated = current + healing;
+        SetHitPoints(updated <= maxHitPoints ? updated : maxHitPoints);
     }
     
 }
