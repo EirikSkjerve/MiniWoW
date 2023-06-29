@@ -9,6 +9,7 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
 ///</summary>
 public class RoamingState : EnemyState
 {
+    private Enemy enemy;
     [SerializeField] private float _moveCounter;
     [SerializeField] private float _frequency;
     [SerializeField] private float _maxRoamingRange;
@@ -16,11 +17,11 @@ public class RoamingState : EnemyState
     
     public override void EnterState(Enemy enemy)
     {
-
+        this.enemy = enemy;
         _idle = true;
         _frequency = 1;
         _moveCounter = 0;
-        enemy.currentTarget = GetRandomPosition(enemy, 8, 5);
+        enemy.currentTarget = GetRandomPosition( 8, 5);
 
     }
 
@@ -32,13 +33,18 @@ public class RoamingState : EnemyState
     public override void UpdateState(Enemy enemy)
     {
 
+        Roam();
         
+    }
+
+    private void Roam()
+    {
         if ((_moveCounter > _frequency)&&_idle)
         {
 
             _idle = false;
 
-            enemy.currentTarget = GetRandomPosition(enemy, 8, 5);
+            enemy.currentTarget = GetRandomPosition(8, 5);
             _moveCounter = 0;
             
         }
@@ -46,7 +52,7 @@ public class RoamingState : EnemyState
         { 
             enemy.WalkTo(enemy.currentTarget);
             _moveCounter += Time.deltaTime;
-            //Debug.Log(enemy.GetCurrentDirection());
+
         }
         else
         {
@@ -59,16 +65,15 @@ public class RoamingState : EnemyState
         {
             _idle = true;
             
-            enemy.currentTarget = GetRandomPosition(enemy, 8, 5);
-            //enemy.body.velocity = new Vector2(0, 0);
-            
+            enemy.currentTarget = GetRandomPosition(8, 5);
+
             _moveCounter = 0;
 
         }
     }
 
     
-    Vector3 GetRandomPosition(Enemy enemy, float xMax, float yMax)
+    Vector3 GetRandomPosition(float xMax, float yMax)
     {
         var randX = Random.Range(enemy.startPosition.x-xMax, enemy.startPosition.x+xMax);
         var randY = Random.Range(enemy.startPosition.y - yMax, enemy.startPosition.y + yMax);

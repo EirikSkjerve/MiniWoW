@@ -30,7 +30,6 @@ public class Enemy : Entity
     public override void Update()
     {
         _currentState.UpdateState(this);
-        Debug.Log(GetCurrentDirection());
     }
 
     public void ChangeState(EnemyState newState)
@@ -54,9 +53,17 @@ public class Enemy : Entity
         
     }
     
-    public void RunTo(Vector3 position)
+    public void RunTo(Vector3 targetPosition)
     {
-        body.velocity = new Vector2(position.x - transform.position.x, position.y - transform.position.y).normalized * GetRunSpeed();
+        var position1 = transform.position;
+        var xDir = targetPosition.x - position1.x;
+        var yDir = targetPosition.y - position1.y;
+        var movementDirection = new Vector2(xDir, yDir);
+        var inputMagnitude = Mathf.Clamp01(movementDirection.magnitude);
+        movementDirection.Normalize();
+            
+        transform.Translate(movementDirection * (GetRunSpeed() * inputMagnitude * Time.deltaTime), Space.World);
+        SetCurrentDirection(new Vector2(movementDirection.x, movementDirection.y));
     }
 
     public void RotateToDirection()
