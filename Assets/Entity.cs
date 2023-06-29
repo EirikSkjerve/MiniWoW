@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
-
+// Parent class for entities such as Player and Enemy
 public abstract class Entity : MonoBehaviour
 {
+    // body to perform physics on
     public Rigidbody2D body;
+    
+    //various properties of the entity
     [SerializeField] private int maxHitPoints;
     [SerializeField] private int currentHitPoints;
     [SerializeField] private int maxResource;
@@ -15,7 +18,9 @@ public abstract class Entity : MonoBehaviour
     [SerializeField] private float walkSpeed;
     [SerializeField] private bool inCombat;
     [SerializeField] private bool isAlive;
-    public struct Stats
+
+    //struct of combat stats 
+    public struct CombatStats
     {
         public int Strength;
         public int Intellect;
@@ -23,7 +28,8 @@ public abstract class Entity : MonoBehaviour
         public int Stamina;
         
     }
-
+    
+    //enum of directions
     public enum Direction
     {
         Up,
@@ -37,8 +43,9 @@ public abstract class Entity : MonoBehaviour
         None
     }
 
-    [SerializeField] private Direction _currentDirection;
-    private Stats _entityStats;
+    private CombatStats _entityCombatStats;
+    [SerializeField] private Direction currentDirection;
+    
     
     // Start is called before the first frame update
     public virtual void Start()
@@ -52,66 +59,40 @@ public abstract class Entity : MonoBehaviour
 
     }
 
+    // returns what direction the entity is moving in, based on the current direction vector of the entity.
     private static Direction GetDirection(Vector2 vectorDirection)
     {
-        //movement is upwards
-        if (vectorDirection.y > 0)
+        return vectorDirection.y switch
         {
-            if (vectorDirection.x > 0)
+            //movement is upwards
+            > 0 when vectorDirection.x > 0 => Direction.UpRight,
+            > 0 when vectorDirection.x < 0 => Direction.UpLeft,
+            > 0 => Direction.Up,
+            < 0 when vectorDirection.x > 0 => Direction.DownRight,
+            < 0 when vectorDirection.x < 0 => Direction.DownLeft,
+            < 0 => Direction.Down,
+            _ => vectorDirection.x switch
             {
-                return Direction.UpRight;
+                > 0 => Direction.Right,
+                < 0 => Direction.Left,
+                _ => Direction.None
             }
-
-            if (vectorDirection.x < 0)
-            {
-                return Direction.UpLeft;
-            }
-            else
-            {
-                return Direction.Up;
-            }
-            
-        }
-
-        if (vectorDirection.y < 0)
-        {
-            if (vectorDirection.x > 0)
-            {
-                return Direction.DownRight;
-            }
-
-            if (vectorDirection.x < 0)
-            {
-                return Direction.DownLeft;
-            }
-            else
-            {
-                return Direction.Down;
-            }
-        }
-
-        if (vectorDirection.x > 0)
-        {
-            return Direction.Right;
-        }
-
-        if (vectorDirection.x < 0)
-        {
-            return Direction.Left;
-        }
-        
-        return Direction.None ;
+        };
     }
     
+    //sets the current direction of the entity, based on the input vector. Calls GetDirection()
     public void SetCurrentDirection (Vector2 vectorDirection)
     {
-        _currentDirection = GetDirection(vectorDirection);
+        currentDirection = GetDirection(vectorDirection);
     }
 
-    public Direction GetCurrentDirection()
+    // Returns the current set direction of the entity
+    protected Direction GetCurrentDirection()
     {
-        return _currentDirection;
+        return currentDirection;
     }
+    
+    //updates the hitpoints value for the entity . Value cannot be negative or greater than max hitpoints 
     protected void SetHitPoints(int valueHitPoints)
     {
         switch (valueHitPoints)
@@ -126,11 +107,13 @@ public abstract class Entity : MonoBehaviour
         }
     }
 
+    //returns the current hitpoints value
     public int GetHitPoints()
     {
         return currentHitPoints;
     }
 
+    //updates the resource value for the entity. Value cannot be negative or greater than max resource-points
     protected void SetResource(int valueResource)
     {
         if (valueResource >= 0 && valueResource <= maxResource && isAlive)
@@ -139,27 +122,34 @@ public abstract class Entity : MonoBehaviour
         }
     }
     
+    //returns the current resource value
     public int GetResource()
     {
         return currentResource;
     }
 
+    //updates the run-speed of the entity.
+    //Walk speed is set to a fraction of run speed
     protected void SetRunSpeed(float valueRunSpeed)
     {
         runSpeed = valueRunSpeed;
         walkSpeed = runSpeed / 7;
     }
     
+    //returns the current run speed value
     public float GetRunSpeed()
     {
         return runSpeed;
     }
 
+    //returns the current walk speed value
     protected float GetWalkSpeed()
     {
         return walkSpeed;
     }
 
+    //deals damage to the entity. Entity has to be alive, and damage cannot be negative.
+    //if damage brings the current hitpoints value to a negative value, the hitpoints are set to 0, and the player is dead.
     public void TakeDamage(int damage)
     {
         if (!isAlive || damage < 0) return;
@@ -169,6 +159,8 @@ public abstract class Entity : MonoBehaviour
         SetHitPoints(updated > 0 ? updated : 0);
     }
 
+    //deals healing to the entity. Entity has to be alive, and healing cannot be negative.
+    //if healing brings the current hitpoints to greater than max hitpoints, hitpoints are set to max.
     public void TakeHealing(int healing)
     {
         if (!isAlive || healing <= 0) return;

@@ -21,7 +21,7 @@ public class RoamingState : EnemyState
         _idle = true;
         _frequency = 1;
         _moveCounter = 0;
-        enemy.currentTarget = GetRandomPosition( 8, 5);
+        enemy.currentTargetPosition = GetRandomPosition( 8, 5);
 
     }
 
@@ -44,13 +44,13 @@ public class RoamingState : EnemyState
 
             _idle = false;
 
-            enemy.currentTarget = GetRandomPosition(8, 5);
+            enemy.currentTargetPosition = GetRandomPosition(8, 5);
             _moveCounter = 0;
             
         }
         else if(!_idle)
         { 
-            enemy.WalkTo(enemy.currentTarget);
+            enemy.WalkTo(enemy.currentTargetPosition);
             _moveCounter += Time.deltaTime;
 
         }
@@ -61,11 +61,11 @@ public class RoamingState : EnemyState
 
         //if the enemy has reached its target position (within some error bound), movement is stopped and 
         // counter is set to zero
-        if(((enemy.transform.position - enemy.currentTarget).magnitude < 0.1f) && !_idle)
+        if(((enemy.transform.position - enemy.currentTargetPosition).magnitude < 0.1f) && !_idle)
         {
             _idle = true;
             
-            enemy.currentTarget = GetRandomPosition(8, 5);
+            enemy.currentTargetPosition = GetRandomPosition(8, 5);
 
             _moveCounter = 0;
 
