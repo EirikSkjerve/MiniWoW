@@ -17,6 +17,7 @@ public class Player : Entity
         SetRunSpeed(7f);
         SetHitPoints(100);
         SetResource(100);
+        Direction playerDirection = Direction.Down;
         //_currentState = new WalkingState();
         //_currentState.EnterState(this);
     }

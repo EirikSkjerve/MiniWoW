@@ -29,6 +29,9 @@ public class PlayerController : MonoBehaviour
         movementDirection.Normalize();
 
         player.transform.Translate(movementDirection * (player.GetRunSpeed() * inputMagnitude * Time.deltaTime), Space.World);
+
+        var dir = player.GetDirection(movementDirection);
+        Debug.Log(dir);
         
         if (movementDirection.y > 0)
             spriteRenderer.sprite = upSprite;
