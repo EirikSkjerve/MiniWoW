@@ -24,6 +24,19 @@ public abstract class Entity : MonoBehaviour
         
     }
 
+    public enum Direction
+    {
+        Up,
+        Down,
+        Left,
+        Right,
+        UpLeft,
+        UpRight,
+        DownLeft,
+        DownRight,
+        None
+    }
+
     private Stats _entityStats;
     
     // Start is called before the first frame update
@@ -38,9 +51,55 @@ public abstract class Entity : MonoBehaviour
         
     }
 
-    public Vector2 getDirection()
+    public Direction GetDirection(Vector2 vectorDirection)
     {
-        return new Vector2(0, 0);
+        //movement is upwards
+        if (vectorDirection.y > 0)
+        {
+            if (vectorDirection.x > 0)
+            {
+                return Direction.UpRight;
+            }
+
+            if (vectorDirection.x < 0)
+            {
+                return Direction.UpLeft;
+            }
+            else
+            {
+                return Direction.Up;
+            }
+            
+        }
+
+        if (vectorDirection.y < 0)
+        {
+            if (vectorDirection.x > 0)
+            {
+                return Direction.DownRight;
+            }
+
+            if (vectorDirection.x < 0)
+            {
+                return Direction.DownLeft;
+            }
+            else
+            {
+                return Direction.Down;
+            }
+        }
+
+        if (vectorDirection.x > 0)
+        {
+            return Direction.Right;
+        }
+
+        if (vectorDirection.x < 0)
+        {
+            return Direction.Left;
+        }
+        
+        return Direction.None ;
     }
     protected void SetHitPoints(int valueHitPoints)
     {
