@@ -6,8 +6,10 @@ using UnityEngine.Serialization;
 public abstract class Entity : MonoBehaviour
 {
     public Rigidbody2D body;
-    [SerializeField] private int hitPoints;
-    [SerializeField] private int resource;
+    [SerializeField] private int maxHitPoints;
+    [SerializeField] private int currentHitPoints;
+    [SerializeField] private int maxResource;
+    [SerializeField] private int currentResource;
     [SerializeField] private float runSpeed;
     [SerializeField] private float walkSpeed;
     [SerializeField] private bool inCombat;
@@ -37,26 +39,29 @@ public abstract class Entity : MonoBehaviour
 
     protected void SetHitPoints(int valueHitPoints)
     {
-        if (valueHitPoints >= 0 && isAlive)
+        if (valueHitPoints >= 0 && valueHitPoints <= maxHitPoints && isAlive)
         {
-            hitPoints = valueHitPoints;
+            currentHitPoints = valueHitPoints;
         }
         
     }
 
     public int GetHitPoints()
     {
-        return hitPoints;
+        return currentHitPoints;
     }
 
     protected void SetResource(int valueResource)
     {
-        resource = valueResource;
+        if (valueResource >= 0 && valueResource <= maxResource && isAlive)
+        {
+            currentResource = valueResource;
+        }
     }
     
     public int GetResource()
     {
-        return resource;
+        return currentResource;
     }
 
     protected void SetRunSpeed(float valueRunSpeed)
@@ -91,8 +96,14 @@ public abstract class Entity : MonoBehaviour
         else
         {
             SetHitPoints(0);
+            isAlive = false;
             Debug.Log("Entity has died");
         }
+    }
+
+    public void TakeHealing()
+    {
+        
     }
     
 }
