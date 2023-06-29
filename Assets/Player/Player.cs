@@ -6,9 +6,7 @@ using UnityEngine;
 public class Player : Entity
 {
     [Header("States")] 
-    private PlayerState _currentState;
-    private PlayerState _walkingState;
-    private PlayerState _idleState;
+    
     
     public Stats PlayerStats;
     [SerializeField] private float xDir;
@@ -19,8 +17,8 @@ public class Player : Entity
         SetRunSpeed(7f);
         SetHitPoints(100);
         SetResource(100);
-        _currentState = new WalkingState();
-        _currentState.EnterState(this);
+        //_currentState = new WalkingState();
+        //_currentState.EnterState(this);
     }
 
     // Update is called once per frame
@@ -33,15 +31,10 @@ public class Player : Entity
 
     }
 
-    public Vector2 getDirection()
-    {
-        return new Vector2(0, 0);
-    }
-    
     public void ChangeState(PlayerState newState)
     {
-        _currentState.ExitState(this);
-        _currentState = newState;
-        _currentState.EnterState(this);
+        //_currentState.ExitState(this);
+        //_currentState = newState;
+        //_currentState.EnterState(this);
     }
 }

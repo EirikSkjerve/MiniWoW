@@ -38,6 +38,10 @@ public abstract class Entity : MonoBehaviour
         
     }
 
+    public Vector2 getDirection()
+    {
+        return new Vector2(0, 0);
+    }
     protected void SetHitPoints(int valueHitPoints)
     {
         switch (valueHitPoints)

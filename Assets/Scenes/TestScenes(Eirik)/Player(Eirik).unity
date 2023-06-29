@@ -199,7 +199,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 9194eeb2a51d654498de6327c8bde2a3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a807e991f504ab84996db38b9f1ac2eb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -250,10 +250,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   body: {fileID: 231803516}
-  hitPoints: 0
-  resource: 0
+  maxHitPoints: 0
+  currentHitPoints: 0
+  maxResource: 0
+  currentResource: 0
+  level: 0
   runSpeed: 0
   walkSpeed: 0
+  inCombat: 0
+  isAlive: 0
   xDir: 0
   yDir: 0
 --- !u!114 &231803518
@@ -269,6 +274,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 231803517}
+  upSprite: {fileID: 21300000, guid: bda63900722731247b4abc2e85bdb78c, type: 3}
+  downSprite: {fileID: 21300000, guid: bda63900722731247b4abc2e85bdb78c, type: 3}
+  leftSprite: {fileID: 21300000, guid: a807e991f504ab84996db38b9f1ac2eb, type: 3}
+  rightSprite: {fileID: 21300000, guid: a807e991f504ab84996db38b9f1ac2eb, type: 3}
 --- !u!1 &1842132101
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,10 +417,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   body: {fileID: 2070745749}
-  hitPoints: 0
-  resource: 0
+  maxHitPoints: 0
+  currentHitPoints: 0
+  maxResource: 0
+  currentResource: 0
+  level: 0
   runSpeed: 0
   walkSpeed: 0
+  inCombat: 0
+  isAlive: 0
   startPosition: {x: 0, y: 0}
   currentTarget: {x: 0, y: 0, z: 0}
 --- !u!212 &2070745748

@@ -5,10 +5,17 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Player player;
+    
+    public Sprite upSprite;
+    public Sprite downSprite;
+    public Sprite leftSprite;
+    public Sprite rightSprite;
+
+    private SpriteRenderer spriteRenderer;
     // Start is called before the first frame update
     void Start()
     {
-        
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -23,10 +30,13 @@ public class PlayerController : MonoBehaviour
 
         player.transform.Translate(movementDirection * (player.GetRunSpeed() * inputMagnitude * Time.deltaTime), Space.World);
         
-        if (movementDirection != Vector2.zero)
-        {
-            //Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, movementDirection);
-            //transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 720 * Time.deltaTime);
-        }
+        if (movementDirection.y > 0)
+            spriteRenderer.sprite = upSprite;
+        else if (movementDirection.y < 0)
+            spriteRenderer.sprite = downSprite;
+        else if (movementDirection.x < 0)
+            spriteRenderer.sprite = leftSprite;
+        else if (movementDirection.x > 0)
+            spriteRenderer.sprite = rightSprite;
     }
 }
