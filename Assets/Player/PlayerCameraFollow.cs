@@ -18,12 +18,14 @@ public class playerFollow : MonoBehaviour
     void Update()
     {
         // Get the current position of the object
-        Vector2 currentPosition = transform.position;
+        var position = transform.position;
+        Vector2 currentPosition = position;
 
         // Calculate the new position using SmoothDamp
         Vector2 newPosition = Vector2.SmoothDamp(currentPosition, target.position, ref currentVelocity, smoothTime);
 
         // Move the object to the new position
-        transform.position = new Vector3(newPosition.x, newPosition.y, transform.position.z);
+        position = new Vector3(newPosition.x, newPosition.y, position.z);
+        transform.position = position;
     }
 }
