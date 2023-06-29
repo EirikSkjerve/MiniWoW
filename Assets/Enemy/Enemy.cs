@@ -10,7 +10,7 @@ public class Enemy : Entity
     private RoamingState _roamingState;
 
     
-    [SerializeField] private Stats EnemyStats;
+    private Stats _enemyStats;
     public Vector2 startPosition;
     public Vector3 currentTarget;
     
@@ -18,8 +18,7 @@ public class Enemy : Entity
     public override void Start()
     {
 
-        EnemyStats.WalkSpeed = 1.5f;
-        EnemyStats.RunSpeed = 4f;
+        SetRunSpeed(8f);
         startPosition = transform.position;
         _roamingState = new RoamingState();
         _currentState = _roamingState;
@@ -41,13 +40,13 @@ public class Enemy : Entity
     }
     public void WalkTo(Vector3 position)
     {
-        body.velocity = new Vector2(position.x - transform.position.x, position.y - transform.position.y).normalized * EnemyStats.WalkSpeed;
+        body.velocity = new Vector2(position.x - transform.position.x, position.y - transform.position.y).normalized * GetRunSpeed();
         
     }
     
     public void RunTo(Vector3 position)
     {
-        body.velocity = new Vector2(position.x - transform.position.x, position.y - transform.position.y).normalized * EnemyStats.RunSpeed;
+        body.velocity = new Vector2(position.x - transform.position.x, position.y - transform.position.y).normalized * GetWalkSpeed();
     }
 
     public void RotateToDirection()

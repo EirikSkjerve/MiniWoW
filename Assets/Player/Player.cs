@@ -16,11 +16,9 @@ public class Player : Entity
     // Start is called before the first frame update
     public override void Start()
     {
-        PlayerStats = new Stats
-        {
-            WalkSpeed = 2.5f,
-            RunSpeed = 6f
-        };
+        SetRunSpeed(7f);
+        SetHitPoints(100);
+        SetResource(100);
         _currentState = new WalkingState();
         _currentState.EnterState(this);
     }
@@ -28,11 +26,18 @@ public class Player : Entity
     // Update is called once per frame
     public override void Update()
     {
-        xDir = body.velocity.x;
-        yDir = body.velocity.y;
+        var velocity = body.velocity;
+        xDir = velocity.x;
+        yDir = velocity.y;
         //_currentState.UpdateState(this);
 
     }
+
+    public Vector2 getDirection()
+    {
+        return new Vector2(0, 0);
+    }
+    
     public void ChangeState(PlayerState newState)
     {
         _currentState.ExitState(this);

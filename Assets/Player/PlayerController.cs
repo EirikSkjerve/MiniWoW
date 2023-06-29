@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
         float inputMagnitude = Mathf.Clamp01(movementDirection.magnitude);
         movementDirection.Normalize();
 
-        player.transform.Translate(movementDirection * (player.PlayerStats.RunSpeed * inputMagnitude * Time.deltaTime), Space.World);
+        player.transform.Translate(movementDirection * (player.GetRunSpeed() * inputMagnitude * Time.deltaTime), Space.World);
         
         if (movementDirection != Vector2.zero)
         {
