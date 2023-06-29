@@ -25,6 +25,7 @@ public class Player : Entity
     // Update is called once per frame
     public override void Update()
     {
+        
         var velocity = body.velocity;
         xDir = velocity.x;
         yDir = velocity.y;
