@@ -48,5 +48,10 @@ public class ActionButton : MonoBehaviour
         GetComponent<Image>().sprite = spellInfo.spellIcon;
         GetComponentInChildren<TMP_Text>().text = spellInfo.spellName;
     }
+
+    
+    public void DisplaySpellInfo() {
+        Debug.Log("Test");
+    }
 }
 
