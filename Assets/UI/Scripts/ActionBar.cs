@@ -6,6 +6,6 @@ public class ActionBar : MonoBehaviour
         var actionButtonObject = transform.GetChild(actionButton);
         var actionButtonScript = actionButtonObject.GetComponent<ActionButton>();
 
-        actionButtonScript.UpdateCoolDown(totalTime, remainingTime);
+        actionButtonScript.UpdateCoolDown(remainingTime);
     }
 }

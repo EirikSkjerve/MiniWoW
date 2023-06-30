@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e464442fb31b63840b624b1601b7e85e, type: 3}
-  m_Name: TestSpell
+  m_Script: {fileID: 11500000, guid: 84fb80a373132006ebcd4ce464ebffd2, type: 3}
+  m_Name: TestTarget
   m_EditorClassIdentifier: 
-  spellName: Test Spell 1
-  spellDescription: Spell that is being tested
-  spellIcon: {fileID: 21300000, guid: 965576e8298d0304788717fecd656ab7, type: 3}
-  spellCooldown: 10
+  characterName: BadGuy
+  characterHead: {fileID: 21300000, guid: 9194eeb2a51d654498de6327c8bde2a3, type: 3}

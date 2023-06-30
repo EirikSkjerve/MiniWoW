@@ -8,6 +8,15 @@ public class CharacterFrame : MonoBehaviour {
     [SerializeField] private Image characterHead;
     [SerializeField] private TMP_Text characterName;
 
+    private CharacterInfo _characterInfo;   
+    public CharacterInfo CharacterInfo {
+        get { return _characterInfo; }
+        set {
+            _characterInfo = value;
+            SetCharacterInfo(value);
+        }
+    }
+
 
     public void UpdateHealthBar(float fillRatio) {
         if (fillRatio > 1 || fillRatio < 0) {
@@ -28,13 +37,8 @@ public class CharacterFrame : MonoBehaviour {
         resourceBar.fillAmount = fillRatio;
     }
     
-
-    public void SetCharacterHead(Sprite newHead) {
-        characterHead.sprite = newHead; 
-    }
-
-
-    public void SetCharacterName(string newName) {
-        characterName.text = newName;
+    private void SetCharacterInfo(CharacterInfo characterInfo) {
+        characterHead.sprite = characterInfo.characterHead;
+        characterName.text = characterInfo.characterName;
     }
 }
