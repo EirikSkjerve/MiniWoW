@@ -38,7 +38,7 @@ public class Player : Entity
 
     public void ChangeState(PlayerState newState)
     {
-        //no states are initialized yet
+        //no states are implemented or initialized yet
         //_currentState.ExitState(this);
         //_currentState = newState;
         //_currentState.EnterState(this);

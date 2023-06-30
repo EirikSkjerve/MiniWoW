@@ -71,7 +71,7 @@ public class Enemy : Entity
         //the enemy's position is translated towards the target.
         transform.Translate(movementDirection * (GetWalkSpeed() * inputMagnitude * Time.deltaTime), Space.World);
         SetCurrentDirection(new Vector2(movementDirection.x, movementDirection.y));
-        //.velocity = new Vector2(position.x - position1.x, position.y - position1.y).normalized * GetWalkSpeed();
+        
         
     }
     
