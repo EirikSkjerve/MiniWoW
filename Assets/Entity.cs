@@ -18,6 +18,7 @@ public abstract class Entity : MonoBehaviour
     [SerializeField] private float walkSpeed;
     [SerializeField] private bool inCombat;
     [SerializeField] private bool isAlive;
+    [SerializeField] private GameObject currentTarget;
 
     //struct of combat stats 
     public struct CombatStats
@@ -179,6 +180,16 @@ public abstract class Entity : MonoBehaviour
     public void DealHealing(Entity target, int healing)
     {
         target.TakeHealing(healing);
+    }
+
+    public void SetCurrentTarget(GameObject target)
+    {
+        currentTarget = target;
+    }
+
+    public GameObject GetCurrentTarget()
+    {
+        return currentTarget;
     }
     
 }

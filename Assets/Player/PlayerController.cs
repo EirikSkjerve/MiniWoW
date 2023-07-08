@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IPointerClickHandler
 {
     public Player player;
     
@@ -15,6 +16,14 @@ public class PlayerController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {
+        GetMovement();
+        //player.SetCurrentTarget(GetClick());
+        GetClick();
+
+    }
+
+    private void GetMovement()
     {
         //gets input from user. 
         float horizontalInput = Input.GetAxis("Horizontal");
@@ -34,7 +43,17 @@ public class PlayerController : MonoBehaviour
         
         //updates the enum Direction of the player, given the calculated movementDirection vector.
         player.SetCurrentDirection(movementDirection);
+    }
 
-        
+    public void GetClick()
+    {
+        if(Input.GetMouseButtonDown(0) && EventSystem.current.IsPointerOverGameObject()) {
+            Debug.Log("TEST");
+        }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        throw new System.NotImplementedException();
     }
 }

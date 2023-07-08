@@ -26,7 +26,7 @@ public class Enemy : Entity
     {
 
         //runspeed, startposition and state initialized.
-        SetRunSpeed(8f);
+        SetRunSpeed(0f);
         startPosition = transform.position;
         _roamingState = new RoamingState();
         _currentState = _roamingState;
