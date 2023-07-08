@@ -17,14 +17,6 @@ public class Player : Entity
     // Start is called before the first frame update
     public override void Start()
     {
-        
-        //testing values
-        SetRunSpeed(7f);
-        SetHitPoints(100);
-        SetResource(100);
-
-        //sets empty direction 
-        Direction playerDirection = Direction.None;
 
     }
 
