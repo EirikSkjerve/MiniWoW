@@ -26,7 +26,9 @@ public abstract class Entity : MonoBehaviour
         public int Intellect;
         public int Agility;
         public int Stamina;
-        
+        public int AttackPower;
+        public int SpellPower;
+
     }
     
     //enum of directions
