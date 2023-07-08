@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Player player;
+    
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -14,19 +16,25 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //gets input from user. 
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
+        // a movement direction vector being a linear combination of basis vectors (0,1) (1,0) and the zero-vector (0,0)
+        // Either: (0,0), (0,1), (1,0), (1,1), (0,-1), (-1,0), (-1,-1), (1,-1), or (-1,1)
         Vector2 movementDirection = new Vector2(horizontalInput, verticalInput);
+        
+        //movement is smoothed out
         float inputMagnitude = Mathf.Clamp01(movementDirection.magnitude);
+        //vector is normalized
         movementDirection.Normalize();
 
-        player.transform.Translate(movementDirection * (player.PlayerStats.RunSpeed * inputMagnitude * Time.deltaTime), Space.World);
+        //changes the position of the player
+        player.transform.Translate(movementDirection * (player.GetRunSpeed() * inputMagnitude * Time.deltaTime), Space.World);
         
-        if (movementDirection != Vector2.zero)
-        {
-            //Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, movementDirection);
-            //transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 720 * Time.deltaTime);
-        }
+        //updates the enum Direction of the player, given the calculated movementDirection vector.
+        player.SetCurrentDirection(movementDirection);
+
+        
     }
 }

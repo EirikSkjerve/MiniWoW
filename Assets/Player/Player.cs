@@ -3,40 +3,36 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+//Child class of entity. The player class represents a player object
 public class Player : Entity
 {
-    [Header("States")] 
-    private PlayerState _currentState;
-    private PlayerState _walkingState;
-    private PlayerState _idleState;
+    //states are not yet implemented for the player class
     
-    public Stats PlayerStats;
-    [SerializeField] private float xDir;
-    [SerializeField] private float yDir;
+    //player should have their own set of combat-stats
+    public CombatStats PlayerCombatStats;
+
+    //XP is only relevant for a player object.
+    public int experiencePoints;
+    
     // Start is called before the first frame update
     public override void Start()
     {
-        PlayerStats = new Stats
-        {
-            WalkSpeed = 2.5f,
-            RunSpeed = 6f
-        };
-        _currentState = new WalkingState();
-        _currentState.EnterState(this);
+
     }
 
     // Update is called once per frame
     public override void Update()
     {
-        xDir = body.velocity.x;
-        yDir = body.velocity.y;
+        //no states are initialized yet
         //_currentState.UpdateState(this);
 
     }
+
     public void ChangeState(PlayerState newState)
     {
-        _currentState.ExitState(this);
-        _currentState = newState;
-        _currentState.EnterState(this);
+        //no states are implemented or initialized yet
+        //_currentState.ExitState(this);
+        //_currentState = newState;
+        //_currentState.EnterState(this);
     }
 }

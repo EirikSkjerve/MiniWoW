@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IdleState : EnemyState
+public class IdleEnemyState : EnemyState
 {
     
     public override void EnterState(Enemy stateMachineenemy)
