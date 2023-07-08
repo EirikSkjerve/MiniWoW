@@ -64,7 +64,6 @@ public abstract class Entity : MonoBehaviour
     {
         return vectorDirection.y switch
         {
-            //movement is upwards
             > 0 when vectorDirection.x > 0 => Direction.UpRight,
             > 0 when vectorDirection.x < 0 => Direction.UpLeft,
             > 0 => Direction.Up,

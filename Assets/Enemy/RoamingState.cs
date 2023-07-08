@@ -56,6 +56,7 @@ public class RoamingState : EnemyState
             _moveCounter = 0;
             
         }
+        
         //if the counter isn't high enough, and the enemy can move, walk towards the target position.
         //Increment the counter
         else if(!_idle)
