@@ -86,7 +86,7 @@ public abstract class Entity : MonoBehaviour
     }
 
     // Returns the current set direction of the entity
-    protected Direction GetCurrentDirection()
+    public Direction GetCurrentDirection()
     {
         return currentDirection;
     }
@@ -149,7 +149,7 @@ public abstract class Entity : MonoBehaviour
 
     //deals damage to the entity. Entity has to be alive, and damage cannot be negative.
     //if damage brings the current hitpoints value to a negative value, the hitpoints are set to 0, and the player is dead.
-    public void TakeDamage(int damage)
+    private void TakeDamage(int damage)
     {
         if (!isAlive || damage < 0) return;
         
@@ -160,13 +160,23 @@ public abstract class Entity : MonoBehaviour
 
     //deals healing to the entity. Entity has to be alive, and healing cannot be negative.
     //if healing brings the current hitpoints to greater than max hitpoints, hitpoints are set to max.
-    public void TakeHealing(int healing)
+    private void TakeHealing(int healing)
     {
         if (!isAlive || healing <= 0) return;
 
         var current = GetHitPoints();
         var updated = current + healing;
         SetHitPoints(updated <= maxHitPoints ? updated : maxHitPoints);
+    }
+
+    public void DealDamage(Entity target, int damage)
+    {
+        target.TakeDamage(damage);
+    }
+
+    public void DealHealing(Entity target, int healing)
+    {
+        target.TakeHealing(healing);
     }
     
 }

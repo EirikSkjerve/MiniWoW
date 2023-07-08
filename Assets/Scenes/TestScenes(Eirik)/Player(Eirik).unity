@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 231803516}
   - component: {fileID: 231803515}
   - component: {fileID: 231803518}
+  - component: {fileID: 231803519}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -274,8 +275,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 231803517}
-  upSprite: {fileID: 21300000, guid: 9093417ad717e424591a131f78f5ecb1, type: 3}
-  downSprite: {fileID: 21300000, guid: 28334cf273bb3284489e08b8eae19c4d, type: 3}
+--- !u!114 &231803519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231803513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2feda913bebea44fbcaf53662411c3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 231803517}
+  upSprite: {fileID: 21300000, guid: 28334cf273bb3284489e08b8eae19c4d, type: 3}
+  downSprite: {fileID: 21300000, guid: 9093417ad717e424591a131f78f5ecb1, type: 3}
   leftSprite: {fileID: 21300000, guid: b39faa27521e4b1458f6d91306e1b9c9, type: 3}
   rightSprite: {fileID: 21300000, guid: ea47726eb482e064199a33c9e5388d76, type: 3}
 --- !u!1 &1842132101

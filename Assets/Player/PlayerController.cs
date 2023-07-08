@@ -6,18 +6,11 @@ public class PlayerController : MonoBehaviour
 {
     public Player player;
     
-    //collection of sprites. Later this should be in own script.
-    public Sprite upSprite;
-    public Sprite downSprite;
-    public Sprite leftSprite;
-    public Sprite rightSprite;
-
-    //the sprite renderer for the player object
-    private SpriteRenderer spriteRenderer;
+    
     // Start is called before the first frame update
     void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        
     }
 
     // Update is called once per frame
@@ -42,14 +35,6 @@ public class PlayerController : MonoBehaviour
         //updates the enum Direction of the player, given the calculated movementDirection vector.
         player.SetCurrentDirection(movementDirection);
 
-        //todo write this in own script
-        if (movementDirection.y > 0)
-            spriteRenderer.sprite = upSprite;
-        else if (movementDirection.y < 0)
-            spriteRenderer.sprite = downSprite;
-        else if (movementDirection.x < 0)
-            spriteRenderer.sprite = leftSprite;
-        else if (movementDirection.x > 0)
-            spriteRenderer.sprite = rightSprite;
+        
     }
 }
