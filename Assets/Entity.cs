@@ -191,5 +191,14 @@ public abstract class Entity : MonoBehaviour
     {
         return currentTarget;
     }
-    
+
+    public override string ToString()
+    {
+        return "Entity";
+    }
+
+    public bool isEntity()
+    {
+        return true;
+    }
 }

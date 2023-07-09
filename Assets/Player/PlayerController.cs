@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PlayerController : MonoBehaviour, IPointerClickHandler
+public class PlayerController : MonoBehaviour
 {
     public Player player;
     
@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour, IPointerClickHandler
     {
         GetMovement();
         //player.SetCurrentTarget(GetClick());
-        GetClick();
+        ListenForClicks();
 
     }
 
@@ -45,15 +45,35 @@ public class PlayerController : MonoBehaviour, IPointerClickHandler
         player.SetCurrentDirection(movementDirection);
     }
 
-    public void GetClick()
+    void ListenForClicks()
     {
-        if(Input.GetMouseButtonDown(0) && EventSystem.current.IsPointerOverGameObject()) {
-            Debug.Log("TEST");
+        if (Input.GetMouseButtonDown(0))
+        {
+            TargetClickTarget();
+
+            
         }
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    void TargetClickTarget()
     {
-        throw new System.NotImplementedException();
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+
+        if (hit.collider != null)
+        {
+            //Debug.Log(hit.collider.gameObject.ToString());
+            var objectType  = hit.collider.gameObject.GetType();
+            // Check if the clicked object is a valid target
+            if (objectType == typeof(Entity) && objectType != typeof(Player))
+            {
+                // Set the current target
+                player.SetCurrentTarget(hit.collider.gameObject);
+
+                // Perform any additional actions or effects on the target
+                // For example, change the sprite color or play a sound
+                // ...
+            }
+        }
     }
 }

@@ -95,4 +95,9 @@ public class Enemy : Entity
             //todo implement rotation
 
     }
+    
+    public override string ToString()
+    {
+        return "Enemy";
+    }
 }
