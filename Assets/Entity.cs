@@ -85,6 +85,11 @@ public abstract class Entity : MonoBehaviour
     //sets the current direction of the entity, based on the input vector. Calls GetDirection()
     public void SetCurrentDirection (Vector2 vectorDirection)
     {
+        var temp = GetDirection(vectorDirection);
+        if (temp == Direction.None)
+        {
+            return;
+        }
         currentDirection = GetDirection(vectorDirection);
     }
 
