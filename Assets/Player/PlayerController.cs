@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour
 
     void ListenForClicks()
     {
+        // when left mouse button is clicked
         if (Input.GetMouseButtonDown(0))
         {
             TargetClickTarget();
@@ -55,20 +56,20 @@ public class PlayerController : MonoBehaviour
 
     void TargetClickTarget()
     {
+        // cast a ray from the screen-point of the cursor 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
 
-        //if (hit.collider == null) return;
-        //Debug.Log(hit.collider.gameObject.ToString());
-
+        // if nothing is clicked, return from this function
+        if (hit.collider == null) return;
+        // create a target-variable with whatever the ray "collided" with
         var target = hit.collider.gameObject;
-        // Set the current target
-        if (target == null) return;
+        
+        
+        if (target.ToString() == "Player (UnityEngine.GameObject)") return;
+        
+        // set the current target
         player.SetCurrentTarget(target);
 
-
-        // Perform any additional actions or effects on the target
-        // For example, change the sprite color or play a sound
-        // ...
     }
 }
