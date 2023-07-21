@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -57,14 +58,14 @@ public class PlayerController : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
 
-        if (hit.collider == null) return;
+        //if (hit.collider == null) return;
         //Debug.Log(hit.collider.gameObject.ToString());
-        GameObject o;
-        var objectType = (o = hit.collider.gameObject).GetType();
-        // Check if the clicked object is a valid target
+
+        var target = hit.collider.gameObject;
         // Set the current target
-        Debug.Log(objectType.ToString());
-        player.SetCurrentTarget(o);
+        if (target == null) return;
+        player.SetCurrentTarget(target);
+
 
         // Perform any additional actions or effects on the target
         // For example, change the sprite color or play a sound
